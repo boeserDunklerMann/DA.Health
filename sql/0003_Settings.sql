@@ -8,6 +8,6 @@ create table Settings
     ChangeDate datetime not null,
     constraint PK_Settings primary key (SettingsID, MandantID),
     constraint FK_Settings_Mandant foreign key (MandantID) references Mandant(MandantID)
-)
+);
 
-delimiter //
+insert into Settings values (1, 2, 'kg', now());
