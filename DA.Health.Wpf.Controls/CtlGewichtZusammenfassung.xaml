@@ -18,5 +18,9 @@
 		<TextBox IsReadOnly="True" Width="100" Height="20" Text="{Binding Avg, UpdateSourceTrigger=PropertyChanged}"/>
 		<Label>Max:</Label>
 		<TextBox IsReadOnly="True" Width="100" Height="20" Text="{Binding Max, UpdateSourceTrigger=PropertyChanged}"/>
+		<Label>Datum von:</Label>
+		<TextBlock Text="{Binding FirstDate, UpdateSourceTrigger=PropertyChanged}"/>
+		<Label>Datum bis:</Label>
+		<TextBlock Text="{Binding LastDate, UpdateSourceTrigger=PropertyChanged}"/>
 	</StackPanel>
 </UserControl>

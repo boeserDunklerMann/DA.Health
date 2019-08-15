@@ -33,17 +33,27 @@ namespace DA.Health.ViewModel
 				Min = messwerts.Min(mw => mw.Value);
 				Avg = messwerts.Average(mw => mw.Value);
 				Max = messwerts.Max(mw => mw.Value);
+				var datum = messwerts.Select((mw)=> new { mw.Datum }).OrderBy(x => x.Datum);
+				FirstDate = (DateTime?)datum.First().Datum;
+				LastDate = datum.Last().Datum;
 			}
 			else
-				Min = Max = Avg = 0;
+			{
+				Min = Max = Avg = null;
+				FirstDate = LastDate = null;
+			}
 			RaisePropertyChangedEvent(nameof(Min));
 			RaisePropertyChangedEvent(nameof(Avg));
 			RaisePropertyChangedEvent(nameof(Max));
+			RaisePropertyChangedEvent(nameof(LastDate));
+			RaisePropertyChangedEvent(nameof(FirstDate));
 		}
 
-		public decimal Min { get; set; }
-		public decimal Avg { get; set; }
-		public decimal Max { get; set; }
+		public decimal? Min { get; set; }
+		public decimal? Avg { get; set; }
+		public decimal? Max { get; set; }
+		public DateTime? FirstDate { get; set; }
+		public DateTime? LastDate { get; set; }
 
 		public GewichtZusammenfassungViewModel()
 		{
