@@ -1,0 +1,70 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{53B7B8FE-FF90-4278-A1D0-81107DE899AC}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>DA.Health.ViewModel</RootNamespace>
+    <AssemblyName>DA.Health.ViewModel</AssemblyName>
+    <TargetFrameworkVersion>v4.7</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <Deterministic>true</Deterministic>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>..\bins\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>..\bins\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="GewichtEintragViewModel.cs" />
+    <Compile Include="GewichtProtokollViewModel.cs" />
+    <Compile Include="GewichtZusammenfassungViewModel.cs" />
+    <Compile Include="MandantViewModel.cs" />
+    <Compile Include="Presenter.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Commons\DA.lib.Commons.csproj">
+      <Project>{3416a077-5b91-42b0-ac62-3b6341ea3f66}</Project>
+      <Name>DA.lib.Commons</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DA.Health.Contracts\DA.Health.Contracts.csproj">
+      <Project>{a901a5cb-e1b4-46c0-992e-0e2172af4a92}</Project>
+      <Name>DA.Health.Contracts</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DA.Health.Model\DA.Health.Model.csproj">
+      <Project>{9d53c2c7-68d0-4562-8766-3858061b3347}</Project>
+      <Name>DA.Health.Model</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DA.lib.MVVM.Framework\DA.lib.MVVM.Framework.csproj">
+      <Project>{4e445865-0d5d-4e58-8705-46758841c1b7}</Project>
+      <Name>DA.lib.MVVM.Framework</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>
