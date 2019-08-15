@@ -19,5 +19,15 @@ namespace DA.Health.Model
 		{
 			return Des;
 		}
+		public override bool Equals(object obj)
+		{
+			if (obj is Mandant)
+				return ((Mandant)obj).ID == ID;
+			return false;
+		}
+		public override int GetHashCode()
+		{
+			return ID.GetHashCode();
+		}
 	}
 }

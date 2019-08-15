@@ -128,7 +128,7 @@ namespace DA.Health.DbAccess.MySql
 		#endregion
 
 		#region Setting
-		public List<Setting> LoadSettings(int settingID, Mandant mandant)
+		public List<Setting> LoadSettings(Mandant mandant)
 		{
 			DataTable t = _con.GetData("CALL sp_GetSettings(?mid)", new MySqlParameter("?mid", mandant.ID));
 			List<Setting> retval = new List<Setting>();
@@ -139,6 +139,33 @@ namespace DA.Health.DbAccess.MySql
 				retval.Add(s);
 			}
 			return retval;
+		}
+		public void SetSetting(Setting setting)
+		{
+			if (setting.DeleteMe)
+			{
+				_con.ExecuteQuery("CALL sp_DeleteSetting(?sid, ?mid)",
+						new MySqlParameter("?sid", setting.ID),
+						new MySqlParameter("?mid", setting.Mandant.ID)
+					);
+			}
+			else
+			{
+				if (setting.IsNew)
+				{
+					_con.ExecuteQuery("CALL sp_InsertSetting(?sid, ?mid, ?val)",
+						new MySqlParameter("?sid", setting.ID),
+						new MySqlParameter("?mid", setting.Mandant.ID),
+						new MySqlParameter("?val", setting.SetingsValue));
+				}
+				else
+				{
+					_con.ExecuteQuery("CALL sp_UpdateSetting(?sid, ?mid, ?val)",
+						new MySqlParameter("?sid", setting.ID),
+						new MySqlParameter("?mid", setting.Mandant.ID),
+						new MySqlParameter("?val", setting.SetingsValue));
+				}
+			}
 		}
 		#endregion
 	}

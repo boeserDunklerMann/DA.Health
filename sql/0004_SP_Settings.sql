@@ -12,7 +12,6 @@ create procedure sp_InsertSetting(sid int, mid int, val varchar(255))
 begin
     insert into Settings (SettingsID, MandantID, SettingsValue, ChangeDate)
     values (sid, mid, val, now());
-    select LAST_INSERT_ID();
 end//
 
 drop procedure if exists sp_UpdateSetting//

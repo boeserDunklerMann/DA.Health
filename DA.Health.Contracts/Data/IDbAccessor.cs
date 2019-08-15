@@ -21,7 +21,8 @@ namespace DA.Health.Contracts.Data
 		#endregion
 
 		#region Setting
-		List<Setting> LoadSettings(int settingID, Mandant mandant);
+		List<Setting> LoadSettings(Mandant mandant);
+		void SetSetting(Setting setting);
 		#endregion
 	}
 }
