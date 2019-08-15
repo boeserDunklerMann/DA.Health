@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DA.Health.Model;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -17,6 +18,10 @@ namespace DA.Health.Contracts.Data
 		#region Gewicht
 		List<Model.GewichtMesswert> LoadGewicht(Model.Mandant mandant);
 		void SetGewicht(Model.GewichtMesswert gewicht);
+		#endregion
+
+		#region Setting
+		List<Setting> LoadSettings(int settingID, Mandant mandant);
 		#endregion
 	}
 }

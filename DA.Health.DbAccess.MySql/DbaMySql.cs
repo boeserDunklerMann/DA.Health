@@ -78,7 +78,6 @@ namespace DA.Health.DbAccess.MySql
 			m.FromDataRow(tbl.Rows[0]);
 			if (!(tbl.Rows[0]["ParentMandantID"] is DBNull))
 			{
-				//m.Parent = new Mandant();
 				m.Parent = LoadMandant((int)tbl.Rows[0]["ParentMandantID"]);
 			}
 			return m;
@@ -115,7 +114,6 @@ namespace DA.Health.DbAccess.MySql
 			}
 			else
 			{
-				// sp_UpdateMandant
 				_con.ExecuteQuery("CALL sp_UpdateMandant(?mid, ?pmid, ?des)",
 					new MySqlParameter("?mid", mandant.ID),
 					new MySqlParameter("?pmid", mandant.Parent?.ID),
@@ -126,6 +124,21 @@ namespace DA.Health.DbAccess.MySql
 		private void DeleteMandant(Mandant mandant)
 		{
 			_con.ExecuteQuery("CALL sp_DeleteMandant(?mid)", new MySqlParameter("?mid", mandant.ID));
+		}
+		#endregion
+
+		#region Setting
+		public List<Setting> LoadSettings(int settingID, Mandant mandant)
+		{
+			DataTable t = _con.GetData("CALL sp_GetSettings(?mid)", new MySqlParameter("?mid", mandant.ID));
+			List<Setting> retval = new List<Setting>();
+			foreach (DataRow row in t.Rows)
+			{
+				Setting s = new Setting();
+				s.FromDataRow(row);
+				retval.Add(s);
+			}
+			return retval;
 		}
 		#endregion
 	}
