@@ -19,8 +19,8 @@
 		<Label>Max:</Label>
 		<TextBox IsReadOnly="True" Width="100" Height="20" Text="{Binding Max, UpdateSourceTrigger=PropertyChanged}"/>
 		<Label>Datum von:</Label>
-		<TextBlock Text="{Binding FirstDate, UpdateSourceTrigger=PropertyChanged}"/>
+		<TextBox Text="{Binding FirstDate, UpdateSourceTrigger=PropertyChanged, ConverterCulture=de-DE, StringFormat=g}" Width="100" Height="20" />
 		<Label>Datum bis:</Label>
-		<TextBlock Text="{Binding LastDate, UpdateSourceTrigger=PropertyChanged}"/>
+		<TextBox Text="{Binding LastDate, UpdateSourceTrigger=PropertyChanged, ConverterCulture=de-DE, StringFormat=g}" Width="100" Height="20" />
 	</StackPanel>
 </UserControl>

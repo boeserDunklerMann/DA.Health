@@ -15,8 +15,9 @@
 				  Width="300" Height="300" Margin="0"
 				  AutoGenerateColumns="False" SelectedItem="{Binding SelectedMesswert}">
 			<DataGrid.Columns>
-				<DataGridTextColumn Header="Datum" Binding="{Binding Datum}"></DataGridTextColumn>
+				<DataGridTextColumn Header="Datum" Binding="{Binding Datum, ConverterCulture=de-DE, StringFormat=g}"></DataGridTextColumn>
 				<DataGridTextColumn Header="Wert" Binding="{Binding Value}"></DataGridTextColumn>
+				<DataGridTextColumn Header="Bemerkung" Binding="{Binding Bemerkung}"/>
 			</DataGrid.Columns>
 		</DataGrid>
 		<Button Command="{Binding DoAddNew}">Neuer Eintrag</Button>
