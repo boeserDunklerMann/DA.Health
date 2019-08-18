@@ -25,6 +25,8 @@ namespace Commons
 
 		public Setting GetSetting(int settingsKey)
 		{
+			if (_settings.Count == 0)
+				return null;
 			return _settings.Where(s => s.ID == settingsKey && s.Mandant.ID == _mandant.ID).First();
 		}
 

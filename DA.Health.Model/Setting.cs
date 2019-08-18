@@ -6,7 +6,7 @@ namespace DA.Health.Model
 	{
 		[DbField("SettingsID")]
 		public override int ID { get => base.ID; set => base.ID = value; }
-		public string SetingsValue { get; set; }
+		public string SettingsValue { get; set; }
 		public DateTime ChangeDate { get; set; }
 		public Mandant Mandant { get; set; }
 		public override bool Equals(object obj)

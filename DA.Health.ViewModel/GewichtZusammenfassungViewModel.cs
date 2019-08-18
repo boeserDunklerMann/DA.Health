@@ -14,12 +14,15 @@ namespace DA.Health.ViewModel
 		public static GewichtZusammenfassungViewModel Instance => _instance;
 
 		private Mandant _selectedMandant;
+		private Commons.Settings _settings;
 		public Mandant SelectedMandant
 		{
 			get { return _selectedMandant; }
 			set
 			{
 				_selectedMandant = value;
+				_settings = new Commons.Settings(_selectedMandant);
+				RaisePropertyChangedEvent(nameof(WeightUnit));
 				RaisePropertyChangedEvent(nameof(SelectedMandant));
 				LoadSummary();
 			}
@@ -54,6 +57,7 @@ namespace DA.Health.ViewModel
 		public decimal? Max { get; set; }
 		public DateTime? FirstDate { get; set; }
 		public DateTime? LastDate { get; set; }
+		public string WeightUnit => _settings?[Commons.Settings.WEIGHT_UNIT]?.SettingsValue;
 
 		public GewichtZusammenfassungViewModel()
 		{

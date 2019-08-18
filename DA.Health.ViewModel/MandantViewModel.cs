@@ -28,6 +28,7 @@ namespace DA.Health.ViewModel
 				RaisePropertyChangedEvent(nameof(SelectedMandant));
 				((GewichtProtokollViewModel)GewichtProtokollViewModel.Instance).SelectedMandant = value;
 				((GewichtZusammenfassungViewModel)GewichtZusammenfassungViewModel.Instance).SelectedMandant = value;
+				Commons.Settings settings = new Commons.Settings(value);
 			}
 		}
 		/// <summary>

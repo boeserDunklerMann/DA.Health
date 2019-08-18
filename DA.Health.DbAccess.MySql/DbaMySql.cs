@@ -136,6 +136,7 @@ namespace DA.Health.DbAccess.MySql
 			{
 				Setting s = new Setting();
 				s.FromDataRow(row);
+				s.Mandant = LoadMandant((int)row["MandantID"]);
 				retval.Add(s);
 			}
 			return retval;
@@ -156,14 +157,14 @@ namespace DA.Health.DbAccess.MySql
 					_con.ExecuteQuery("CALL sp_InsertSetting(?sid, ?mid, ?val)",
 						new MySqlParameter("?sid", setting.ID),
 						new MySqlParameter("?mid", setting.Mandant.ID),
-						new MySqlParameter("?val", setting.SetingsValue));
+						new MySqlParameter("?val", setting.SettingsValue));
 				}
 				else
 				{
 					_con.ExecuteQuery("CALL sp_UpdateSetting(?sid, ?mid, ?val)",
 						new MySqlParameter("?sid", setting.ID),
 						new MySqlParameter("?mid", setting.Mandant.ID),
-						new MySqlParameter("?val", setting.SetingsValue));
+						new MySqlParameter("?val", setting.SettingsValue));
 				}
 			}
 		}

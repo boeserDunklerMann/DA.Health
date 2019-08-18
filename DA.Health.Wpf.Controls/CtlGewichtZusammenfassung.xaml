@@ -14,10 +14,13 @@
 	<StackPanel Orientation="Horizontal">
 		<Label>Min:</Label>
 		<TextBox IsReadOnly="True" Width="100" Height="20" Text="{Binding Min, UpdateSourceTrigger=PropertyChanged}"/>
+		<TextBlock Text="{Binding WeightUnit,UpdateSourceTrigger=PropertyChanged}"/>
 		<Label>Avg:</Label>
 		<TextBox IsReadOnly="True" Width="100" Height="20" Text="{Binding Avg, UpdateSourceTrigger=PropertyChanged}"/>
+		<TextBlock Text="{Binding WeightUnit,UpdateSourceTrigger=PropertyChanged}"/>
 		<Label>Max:</Label>
 		<TextBox IsReadOnly="True" Width="100" Height="20" Text="{Binding Max, UpdateSourceTrigger=PropertyChanged}"/>
+		<TextBlock Text="{Binding WeightUnit,UpdateSourceTrigger=PropertyChanged}"/>
 		<Label>Datum von:</Label>
 		<TextBox Text="{Binding FirstDate, UpdateSourceTrigger=PropertyChanged, ConverterCulture=de-DE, StringFormat=g}" Width="100" Height="20" />
 		<Label>Datum bis:</Label>
