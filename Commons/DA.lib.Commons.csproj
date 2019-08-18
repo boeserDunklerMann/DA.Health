@@ -53,6 +53,10 @@
       <Project>{75a85d65-a7f7-4945-83c3-fd0d59358b82}</Project>
       <Name>DA.Health.DbAccess.MySql</Name>
     </ProjectReference>
+    <ProjectReference Include="..\DA.Health.Encryption.MD5\DA.Health.Encryption.MD5.csproj">
+      <Project>{f5ac3471-6e6a-4eda-ad68-29c0a7f4651d}</Project>
+      <Name>DA.Health.Encryption.MD5</Name>
+    </ProjectReference>
     <ProjectReference Include="..\DA.Health.Model\DA.Health.Model.csproj">
       <Project>{9d53c2c7-68d0-4562-8766-3858061b3347}</Project>
       <Name>DA.Health.Model</Name>

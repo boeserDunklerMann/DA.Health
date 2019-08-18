@@ -22,9 +22,8 @@ namespace Commons
 
 		public static void CreateBindings()
 		{
-			//Bind(typeof(IFinanceSerializer), typeof(JsonSerializer));
-			//Bind(typeof(IDataAccessor), typeof(MySqlAccessor));
 			Bind(typeof(DA.Health.Contracts.Data.IDbAccessor), typeof(DA.Health.DbAccess.MySql.DbaMySql));
+			Bind(typeof(DA.Health.Contracts.Encryption.IEncHasher), typeof(DA.Health.Encryption.MD5.Md5Hasher));
 		}
 
 		public static TInterface GetObject<TInterface>()

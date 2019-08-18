@@ -44,6 +44,7 @@
     <Compile Include="GewichtEintragViewModel.cs" />
     <Compile Include="GewichtProtokollViewModel.cs" />
     <Compile Include="GewichtZusammenfassungViewModel.cs" />
+    <Compile Include="LoginViewModel.cs" />
     <Compile Include="MandantViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
