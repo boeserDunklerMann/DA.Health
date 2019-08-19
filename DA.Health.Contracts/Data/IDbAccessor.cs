@@ -24,5 +24,10 @@ namespace DA.Health.Contracts.Data
 		List<Setting> LoadSettings(Mandant mandant);
 		void SetSetting(Setting setting);
 		#endregion
+
+		#region Login
+		Login LoadLogin(string username, string password);
+		void SetLogin(Login login);
+		#endregion
 	}
 }

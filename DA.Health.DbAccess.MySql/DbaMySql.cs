@@ -141,6 +141,7 @@ namespace DA.Health.DbAccess.MySql
 			}
 			return retval;
 		}
+
 		public void SetSetting(Setting setting)
 		{
 			if (setting.DeleteMe)
@@ -169,5 +170,50 @@ namespace DA.Health.DbAccess.MySql
 			}
 		}
 		#endregion
+
+		public Login LoadLogin(string username, string password)
+		{
+			// TODO DA: SP aufrufen
+			DataTable tbl = _con.GetData("SELECT * FROM Login where Username=?user and Password=?pass",
+				new MySqlParameter("?user", username),
+				new MySqlParameter("?pass", password));
+			if (tbl.Rows.Count > 1)
+				throw new ApplicationException($"Zu viele Logins zu User \"${username}\" gefunden, Mglw. Datenbankproblem!");
+			Login retval = new Login();
+
+			if (tbl.Rows.Count == 1)    // wenn keine Zeilen zurückkamen, war user od. Pass falsch
+			{
+				retval.FromDataRow(tbl.Rows[0]);
+				retval.Mandant = LoadMandant((int)tbl.Rows[0]["MandantID"]);
+			}
+			return retval;
+		}
+
+		public void SetLogin(Login login)
+		{
+			// TODO DA: SP aufrufen
+			if (login.DeleteMe)
+			{
+				_con.ExecuteQuery("DELETE FROM Login WHERE LoginID=?lid", new MySqlParameter("?lid", login.ID));
+			}
+			else
+			{
+				if (login.IsNew)
+				{
+					string sql = "INSERT INTO Login (Username, Pasword, MandantID, Changedate) VALUES (?user, ?pass, ?mid, NOW())";
+					_con.ExecuteQuery(sql, new MySqlParameter("?user", login.Username),
+						new MySqlParameter("?pass", login.Password), new MySqlParameter("?mid", login.Mandant.ID));
+					object id = _con.LookUp("SELECT LAST_INSERT_ID()");
+					login.ID = Convert.ToInt32(id);
+				}
+				else
+				{
+					string sql = "UPDATE Login SET Username=?user, Password=?pass, MandantID=?mid, ChangeDate=NOW() WHERE LoginID=?lid";
+					_con.ExecuteQuery(sql, new MySqlParameter("?user", login.Username),
+						new MySqlParameter("?pass", login.Password), new MySqlParameter("?mid", login.Mandant.ID),
+						new MySqlParameter("?lid", login.ID));
+				}
+			}
+		}
 	}
 }
