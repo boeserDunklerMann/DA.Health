@@ -11,6 +11,6 @@ namespace DA.Health.Contracts.Encryption
 	/// </summary>
 	public interface IEncHasher
 	{
-		string HashUserPasswort(string username, string plainPasswort);
+		byte[] HashUserPasswort(string username, string plainPasswort);
 	}
 }

@@ -5,7 +5,7 @@ create table Login
 (
     LoginID int auto_increment not null,
     Username varchar(255) not null,
-    Password varchar(255) null,
+    Password binary(255) null,
     MandantID int not null,
     ChangeDate datetime not null,
     constraint PK_Login primary key(LoginID),

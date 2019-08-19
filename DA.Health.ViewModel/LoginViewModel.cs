@@ -1,4 +1,6 @@
-﻿using DA.Health.Contracts.Encryption;
+﻿using DA.Health.Contracts.Data;
+using DA.Health.Contracts.Encryption;
+using DA.Health.Model;
 using DA.lib.MVVM.Framework;
 using System;
 using System.Collections.Generic;
@@ -38,10 +40,16 @@ namespace DA.Health.ViewModel
 			LoginName = Environment.UserName;
 		}
 
+		private Login _login;
+		public Login AuthenticatedLogin => _login;
+
 		#region Actions
 		private void Login()
 		{
-			string cryptedPass = _hasher.HashUserPasswort(_loginName, _plainPassword);
+			byte[] cryptedPass = _hasher.HashUserPasswort(_loginName, _plainPassword);
+			IDbAccessor db = Commons.ContractBinder.GetObject<IDbAccessor>();
+			_login = db.LoadLogin(_loginName, cryptedPass);
+
 		}
 		#endregion
 

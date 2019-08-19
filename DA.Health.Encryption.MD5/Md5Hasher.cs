@@ -16,11 +16,10 @@ namespace DA.Health.Encryption.MD5
 			_md5CSP = new MD5CryptoServiceProvider();
 		}
 
-		public string HashUserPasswort(string username, string plainPasswort)
+		public byte[] HashUserPasswort(string username, string plainPasswort)
 		{
 			string input = $"{username}:{plainPasswort}";
-			byte[] hash = _md5CSP.ComputeHash(UnicodeEncoding.Unicode.GetBytes(input));
-			return UnicodeEncoding.Unicode.GetString(hash);
+			return _md5CSP.ComputeHash(UnicodeEncoding.Unicode.GetBytes(input));
 		}
 	}
 }

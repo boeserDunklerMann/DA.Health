@@ -19,11 +19,12 @@ namespace LoginPresenter.Test.Cons
 			vm.PlainPassword = "";
 			var loginAction = vm.DoLogin;
 			loginAction.Execute(null);
-			Login l = new Login() { ID = 1, Username = "dunkelan", Password = "已倵縔봙堈橣郾" };
+			DA.Health.Contracts.Encryption.IEncHasher h = Commons.ContractBinder.GetObject<DA.Health.Contracts.Encryption.IEncHasher>();
+			Login l = new Login() { ID = 1, Username = "dunkelan", Password = h.HashUserPasswort("dunkelan", "") };
 			l.Mandant = db.LoadMandant(2);
 			//db.SetLogin(l);
 
-			Login l2 = db.LoadLogin("dunkelan", "已倵縔봙堈橣郾");
+			Login l2 = db.LoadLogin("dunkelan", h.HashUserPasswort("dunkelan", "xyxyx"));
 		}
 	}
 }

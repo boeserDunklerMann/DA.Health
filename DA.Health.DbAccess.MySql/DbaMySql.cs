@@ -171,17 +171,18 @@ namespace DA.Health.DbAccess.MySql
 		}
 		#endregion
 
-		public Login LoadLogin(string username, string password)
+		#region Login
+		public Login LoadLogin(string username, byte[] password)
 		{
 			// TODO DA: SP aufrufen
-			DataTable tbl = _con.GetData("SELECT * FROM Login where Username=?user and Password=?pass",
+			DataTable tbl = _con.GetData("CALL sp_GetLogin(?user,?pass)",
 				new MySqlParameter("?user", username),
 				new MySqlParameter("?pass", password));
 			if (tbl.Rows.Count > 1)
 				throw new ApplicationException($"Zu viele Logins zu User \"${username}\" gefunden, Mglw. Datenbankproblem!");
 			Login retval = new Login();
 
-			if (tbl.Rows.Count == 1)    // wenn keine Zeilen zurückkamen, war user od. Pass falsch
+			if (tbl.Rows.Count == 1)    // wenn keine Zeilen zurückkamen, war user u./od. Pass falsch
 			{
 				retval.FromDataRow(tbl.Rows[0]);
 				retval.Mandant = LoadMandant((int)tbl.Rows[0]["MandantID"]);
@@ -215,5 +216,7 @@ namespace DA.Health.DbAccess.MySql
 				}
 			}
 		}
+		#endregion
+
 	}
 }

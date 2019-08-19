@@ -26,7 +26,7 @@ namespace DA.Health.Contracts.Data
 		#endregion
 
 		#region Login
-		Login LoadLogin(string username, string password);
+		Login LoadLogin(string username, byte[] password);
 		void SetLogin(Login login);
 		#endregion
 	}
