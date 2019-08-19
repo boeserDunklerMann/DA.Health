@@ -20,11 +20,14 @@ namespace LoginPresenter.Test.Cons
 			var loginAction = vm.DoLogin;
 			loginAction.Execute(null);
 			DA.Health.Contracts.Encryption.IEncHasher h = Commons.ContractBinder.GetObject<DA.Health.Contracts.Encryption.IEncHasher>();
-			Login l = new Login() { ID = 1, Username = "dunkelan", Password = h.HashUserPasswort("dunkelan", "") };
-			l.Mandant = db.LoadMandant(2);
-			//db.SetLogin(l);
+			//Login l = new Login() { ID = 1, Username = "dunkelan", Password = h.HashUserPasswort("dunkelan", "") };
+			Login l = new Login() { Username = "test", Password = h.HashUserPasswort("test", "abc") };
+			l.Mandant = db.LoadMandant(5);
+			db.SetLogin(l);
 
-			Login l2 = db.LoadLogin("dunkelan", h.HashUserPasswort("dunkelan", "xyxyx"));
+			Login l2 = db.LoadLogin("test", h.HashUserPasswort("test", "abc"));
+			l2.DeleteMe = true;
+			db.SetLogin(l2);
 		}
 	}
 }

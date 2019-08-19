@@ -174,7 +174,6 @@ namespace DA.Health.DbAccess.MySql
 		#region Login
 		public Login LoadLogin(string username, byte[] password)
 		{
-			// TODO DA: SP aufrufen
 			DataTable tbl = _con.GetData("CALL sp_GetLogin(?user,?pass)",
 				new MySqlParameter("?user", username),
 				new MySqlParameter("?pass", password));
@@ -192,24 +191,22 @@ namespace DA.Health.DbAccess.MySql
 
 		public void SetLogin(Login login)
 		{
-			// TODO DA: SP aufrufen
 			if (login.DeleteMe)
 			{
-				_con.ExecuteQuery("DELETE FROM Login WHERE LoginID=?lid", new MySqlParameter("?lid", login.ID));
+				_con.ExecuteQuery("CALL sp_DeleteLogin(?lid)", new MySqlParameter("?lid", login.ID));
 			}
 			else
 			{
 				if (login.IsNew)
 				{
-					string sql = "INSERT INTO Login (Username, Pasword, MandantID, Changedate) VALUES (?user, ?pass, ?mid, NOW())";
-					_con.ExecuteQuery(sql, new MySqlParameter("?user", login.Username),
+					string sql = "CALL sp_InsertLogin(?user, ?pass, ?mid)";
+					object id = _con.LookUp(sql, new MySqlParameter("?user", login.Username),
 						new MySqlParameter("?pass", login.Password), new MySqlParameter("?mid", login.Mandant.ID));
-					object id = _con.LookUp("SELECT LAST_INSERT_ID()");
 					login.ID = Convert.ToInt32(id);
 				}
 				else
 				{
-					string sql = "UPDATE Login SET Username=?user, Password=?pass, MandantID=?mid, ChangeDate=NOW() WHERE LoginID=?lid";
+					string sql = "CALL sp_UpdateLogin(?lid, ?user, ?pass, ?mid)";
 					_con.ExecuteQuery(sql, new MySqlParameter("?user", login.Username),
 						new MySqlParameter("?pass", login.Password), new MySqlParameter("?mid", login.Mandant.ID),
 						new MySqlParameter("?lid", login.ID));

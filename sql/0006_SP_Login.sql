@@ -18,8 +18,9 @@ create procedure sp_InsertLogin(username varchar(255),
 password binary(255),
 mid int)
 begin
-    INSERT INTO Login (Username, Pasword, MandantID, Changedate)
+    INSERT INTO Login (Username, Password, MandantID, Changedate)
     VALUES (username, password, mid, NOW());
+    SELECT LAST_INSERT_ID();
 end//
 
 drop procedure if exists sp_UpdateLogin//
