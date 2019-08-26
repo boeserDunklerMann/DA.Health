@@ -28,7 +28,10 @@ namespace DA.Health.ViewModel
 			}
 		}
 
-		private void LoadSummary()
+		/// <summary>
+		/// Lädt die Zusammenfassung und veranlasst die View sich zu aktualisieren
+		/// </summary>
+		public void LoadSummary()
 		{
 			List<GewichtMesswert> messwerts = ((GewichtProtokollViewModel)GewichtProtokollViewModel.Instance).Gewicht;
 			if (messwerts.Count > 0)

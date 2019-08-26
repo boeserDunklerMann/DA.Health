@@ -1,10 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Data;
-using System.Linq;
-using System.Threading.Tasks;
-using System.Windows;
+﻿using System.Windows;
+using Commons;
 
 namespace DA.Health.Wpf
 {
@@ -13,5 +8,18 @@ namespace DA.Health.Wpf
 	/// </summary>
 	public partial class App : Application
 	{
+		private void Application_Startup(object sender, StartupEventArgs e)
+		{
+			Current.ShutdownMode = ShutdownMode.OnExplicitShutdown;
+			LoginWindow login = new LoginWindow();
+			if (login.ShowDialog() == true)
+			{
+				Statics.CurrentLogin = login.Login;
+				MainWindow window = new MainWindow();
+				ShutdownMode = ShutdownMode.OnMainWindowClose;
+				MainWindow = window;
+				window.Show();
+			}
+		}
 	}
 }

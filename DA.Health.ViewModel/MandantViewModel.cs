@@ -13,7 +13,7 @@ namespace DA.Health.ViewModel
 	public class MandantViewModel : ObservableObject
 	{
 		IDbAccessor _db = Commons.ContractBinder.GetObject<Contracts.Data.IDbAccessor>();
-		public List<Mandant> Mandants { get; private set; }
+		public List<Mandant> Mandants { get; private set; } = new List<Mandant>();
 
 		private Mandant _selectedMandant;
 		public Mandant SelectedMandant
@@ -43,7 +43,14 @@ namespace DA.Health.ViewModel
 
 		private void LoadMandants()
 		{
-			Mandants = _db.LoadMandants();
+			
+			if (Commons.Statics.CurrentLogin.IsDevLogin)
+				Mandants = _db.LoadMandants();
+			else
+			{
+				Mandants.Clear(); Mandants.Add(Commons.Statics.CurrentLogin.Mandant);
+				// TODO: Childmandanten anzeigen
+			}
 		}
 
 		#region Actions

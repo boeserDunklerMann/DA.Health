@@ -23,5 +23,12 @@ namespace DA.Health.Wpf
 		{
 			InitializeComponent();
 		}
+		public Model.Login Login { get; private set; }
+
+		private void LoginControl_LoginSuccess()
+		{
+			Login = loginControl.Login;
+			DialogResult = true;
+		}
 	}
 }

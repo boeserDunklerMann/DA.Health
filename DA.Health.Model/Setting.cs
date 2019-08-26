@@ -1,4 +1,5 @@
 ﻿using System;
+using DA.Health.Model.Attributes;
 
 namespace DA.Health.Model
 {

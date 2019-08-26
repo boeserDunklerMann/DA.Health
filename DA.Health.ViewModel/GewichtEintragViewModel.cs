@@ -32,10 +32,17 @@ namespace DA.Health.ViewModel
 			GewichtEintragViewModel._instance = this;
 		}
 
+		private void RaiseChangeEvent()
+		{
+			GewichtProtokollViewModel.Instance.LoadGewicht();
+			GewichtZusammenfassungViewModel.Instance.LoadSummary();
+		}
+
 		#region Actions
 		private void SaveAction()
 		{
 			_db.SetGewicht(_selectedEintrag);
+			RaiseChangeEvent();
 		}
 
 		private void DeleteAction()

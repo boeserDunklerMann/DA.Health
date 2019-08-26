@@ -1,10 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using DA.Health.Model.Attributes;
+using System;
 using System.Data;
 using System.Linq;
 using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DA.Health.Model
 {
@@ -21,7 +19,8 @@ namespace DA.Health.Model
 			{
 				string colName = pi.Name;
 				Attribute a = pi.GetCustomAttribute(typeof(DbField));
-				if (null != a)
+				Attribute omitDb = pi.GetCustomAttribute(typeof(OmitDbAttribute));
+				if ((null != a) && (null == omitDb))
 					colName = ((DbField)a).DbFieldName;
 
 				if (row.Table.Columns.Contains(colName) && row[colName] != DBNull.Value)

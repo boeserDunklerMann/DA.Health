@@ -50,7 +50,10 @@ namespace DA.Health.ViewModel
 			GewichtProtokollViewModel._instance = this;
 		}
 
-		private void LoadGewicht()
+		/// <summary>
+		/// Lädt die Gewichtsmesswerte des aktuellen Mandanten und lässt die View aktualisieren
+		/// </summary>
+		public void LoadGewicht()
 		{
 			if (null != _selectedMandant)
 			{

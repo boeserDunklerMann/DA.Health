@@ -12,18 +12,17 @@ namespace DA.Health.DbAccess.MySql
 	public class DbaMySql : Contracts.Data.IDbAccessor
 	{
 		private const string CONNECTION_STRING = "Server=meereen;Database=Health;Uid=health;Pwd=gesundheit;";
-		private readonly iS.MySql.SqlCon _con;
+		private readonly DbConnection _con = new DbConnection();
 
 		public DbaMySql()
 		{
-			_con = iS.MySql.SqlCon.Instance;
-			_con.InitDbConnection(CONNECTION_STRING);
+			_con.Init(CONNECTION_STRING);
 		}
 
 		#region Gewicht
 		public List<GewichtMesswert> LoadGewicht(Mandant mandant)
 		{
-			DataTable tbl = _con.GetData("CALL sp_GetGewichts(?mid)", new MySqlParameter("?mid", mandant.ID));
+			DataTable tbl = _con.Connection.GetData("CALL sp_GetGewichts(?mid)", new MySqlParameter("?mid", mandant.ID));
 			List<GewichtMesswert> gewichts = new List<GewichtMesswert>();
 			foreach (DataRow row in tbl.Rows)
 			{
@@ -44,7 +43,7 @@ namespace DA.Health.DbAccess.MySql
 			}
 			if (gewicht.IsNew)
 			{
-				object id = _con.LookUp("CALL sp_InsertGewicht(?datum, ?wert, ?bemerkung, ?mid)",
+				object id = _con.Connection.LookUp("CALL sp_InsertGewicht(?datum, ?wert, ?bemerkung, ?mid)",
 					new MySqlParameter("?datum", gewicht.Datum),
 					new MySqlParameter("?wert", gewicht.Value),
 					new MySqlParameter("?bemerkung", gewicht.Bemerkung),
@@ -53,7 +52,7 @@ namespace DA.Health.DbAccess.MySql
 			}
 			else
 			{
-				_con.ExecuteQuery("CALL sp_UpdateGewicht(?datum, ?wert, ?bemerkung, ?mid, ?gid)",
+				_con.Connection.ExecuteQuery("CALL sp_UpdateGewicht(?datum, ?wert, ?bemerkung, ?mid, ?gid)",
 					new MySqlParameter("?datum", gewicht.Datum),
 					new MySqlParameter("?wert", gewicht.Value),
 					new MySqlParameter("?bemerkung", gewicht.Bemerkung),
@@ -64,14 +63,14 @@ namespace DA.Health.DbAccess.MySql
 
 		private void DeleteGewicht(Model.GewichtMesswert gewicht)
 		{
-			_con.ExecuteQuery("CALL sp_DeleteGewicht(?gid)", new MySqlParameter("?gid", gewicht.ID));
+			_con.Connection.ExecuteQuery("CALL sp_DeleteGewicht(?gid)", new MySqlParameter("?gid", gewicht.ID));
 		}
 		#endregion
 
 		#region Mandant
 		public Mandant LoadMandant(int mandantID)
 		{
-			DataTable tbl = _con.GetData("CALL sp_GetMandant(?mid)", new MySqlParameter("?mid", mandantID));
+			DataTable tbl = _con.Connection.GetData("CALL sp_GetMandant(?mid)", new MySqlParameter("?mid", mandantID));
 			if (tbl.Rows.Count != 1)
 				throw new ApplicationException("zu viele oder kein Mandant zu einer ID gefunden");
 			Mandant m = new Mandant();
@@ -85,7 +84,7 @@ namespace DA.Health.DbAccess.MySql
 
 		public List<Mandant> LoadMandants()
 		{
-			DataTable tbl =_con.GetData("CALL sp_GetMandants()");
+			DataTable tbl =_con.Connection.GetData("CALL sp_GetMandants()");
 			List<Mandant> mandants = new List<Mandant>();
 			foreach (DataRow row in tbl.Rows)
 			{
@@ -107,14 +106,14 @@ namespace DA.Health.DbAccess.MySql
 			}
 			if (mandant.IsNew)
 			{
-				object id = _con.LookUp("CALL sp_InsertMandant(?pmid, ?des)",
+				object id = _con.Connection.LookUp("CALL sp_InsertMandant(?pmid, ?des)",
 					new MySqlParameter("?pmid", mandant.Parent?.ID),
 					new MySqlParameter("?des", mandant.Des));
 				mandant.ID = Convert.ToInt32(id);
 			}
 			else
 			{
-				_con.ExecuteQuery("CALL sp_UpdateMandant(?mid, ?pmid, ?des)",
+				_con.Connection.ExecuteQuery("CALL sp_UpdateMandant(?mid, ?pmid, ?des)",
 					new MySqlParameter("?mid", mandant.ID),
 					new MySqlParameter("?pmid", mandant.Parent?.ID),
 					new MySqlParameter("?des", mandant.Des));
@@ -123,14 +122,14 @@ namespace DA.Health.DbAccess.MySql
 
 		private void DeleteMandant(Mandant mandant)
 		{
-			_con.ExecuteQuery("CALL sp_DeleteMandant(?mid)", new MySqlParameter("?mid", mandant.ID));
+			_con.Connection.ExecuteQuery("CALL sp_DeleteMandant(?mid)", new MySqlParameter("?mid", mandant.ID));
 		}
 		#endregion
 
 		#region Setting
 		public List<Setting> LoadSettings(Mandant mandant)
 		{
-			DataTable t = _con.GetData("CALL sp_GetSettings(?mid)", new MySqlParameter("?mid", mandant.ID));
+			DataTable t = _con.Connection.GetData("CALL sp_GetSettings(?mid)", new MySqlParameter("?mid", mandant.ID));
 			List<Setting> retval = new List<Setting>();
 			foreach (DataRow row in t.Rows)
 			{
@@ -146,7 +145,7 @@ namespace DA.Health.DbAccess.MySql
 		{
 			if (setting.DeleteMe)
 			{
-				_con.ExecuteQuery("CALL sp_DeleteSetting(?sid, ?mid)",
+				_con.Connection.ExecuteQuery("CALL sp_DeleteSetting(?sid, ?mid)",
 						new MySqlParameter("?sid", setting.ID),
 						new MySqlParameter("?mid", setting.Mandant.ID)
 					);
@@ -155,14 +154,14 @@ namespace DA.Health.DbAccess.MySql
 			{
 				if (setting.IsNew)
 				{
-					_con.ExecuteQuery("CALL sp_InsertSetting(?sid, ?mid, ?val)",
+					_con.Connection.ExecuteQuery("CALL sp_InsertSetting(?sid, ?mid, ?val)",
 						new MySqlParameter("?sid", setting.ID),
 						new MySqlParameter("?mid", setting.Mandant.ID),
 						new MySqlParameter("?val", setting.SettingsValue));
 				}
 				else
 				{
-					_con.ExecuteQuery("CALL sp_UpdateSetting(?sid, ?mid, ?val)",
+					_con.Connection.ExecuteQuery("CALL sp_UpdateSetting(?sid, ?mid, ?val)",
 						new MySqlParameter("?sid", setting.ID),
 						new MySqlParameter("?mid", setting.Mandant.ID),
 						new MySqlParameter("?val", setting.SettingsValue));
@@ -174,7 +173,7 @@ namespace DA.Health.DbAccess.MySql
 		#region Login
 		public Login LoadLogin(string username, byte[] password)
 		{
-			DataTable tbl = _con.GetData("CALL sp_GetLogin(?user,?pass)",
+			DataTable tbl = _con.Connection.GetData("CALL sp_GetLogin(?user,?pass)",
 				new MySqlParameter("?user", username),
 				new MySqlParameter("?pass", password));
 			if (tbl.Rows.Count > 1)
@@ -185,7 +184,10 @@ namespace DA.Health.DbAccess.MySql
 			{
 				retval.FromDataRow(tbl.Rows[0]);
 				retval.Mandant = LoadMandant((int)tbl.Rows[0]["MandantID"]);
+				retval.Validated = true;
 			}
+			else
+				retval.Validated = false;
 			return retval;
 		}
 
@@ -193,21 +195,21 @@ namespace DA.Health.DbAccess.MySql
 		{
 			if (login.DeleteMe)
 			{
-				_con.ExecuteQuery("CALL sp_DeleteLogin(?lid)", new MySqlParameter("?lid", login.ID));
+				_con.Connection.ExecuteQuery("CALL sp_DeleteLogin(?lid)", new MySqlParameter("?lid", login.ID));
 			}
 			else
 			{
 				if (login.IsNew)
 				{
 					string sql = "CALL sp_InsertLogin(?user, ?pass, ?mid)";
-					object id = _con.LookUp(sql, new MySqlParameter("?user", login.Username),
+					object id = _con.Connection.LookUp(sql, new MySqlParameter("?user", login.Username),
 						new MySqlParameter("?pass", login.Password), new MySqlParameter("?mid", login.Mandant.ID));
 					login.ID = Convert.ToInt32(id);
 				}
 				else
 				{
 					string sql = "CALL sp_UpdateLogin(?lid, ?user, ?pass, ?mid)";
-					_con.ExecuteQuery(sql, new MySqlParameter("?user", login.Username),
+					_con.Connection.ExecuteQuery(sql, new MySqlParameter("?user", login.Username),
 						new MySqlParameter("?pass", login.Password), new MySqlParameter("?mid", login.Mandant.ID),
 						new MySqlParameter("?lid", login.ID));
 				}

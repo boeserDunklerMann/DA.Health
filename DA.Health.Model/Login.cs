@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using DA.Health.Model.Attributes;
 
 namespace DA.Health.Model
 {
@@ -14,5 +15,15 @@ namespace DA.Health.Model
 		public byte[] Password { get; set; }
 		public DateTime ChangeDate { get; set; }
 		public Mandant Mandant { get; set; }
+		/// <summary>
+		/// Wurde das Login mit den Credentials validiert?
+		/// </summary>
+		[OmitDb()]
+		public bool Validated { get; set; }
+		/// <summary>
+		/// Ist der User der Entwickler?
+		/// </summary>
+		[OmitDb()]
+		public bool IsDevLogin { get { return Username.ToLower() == "dunkelan"; } }
 	}
 }

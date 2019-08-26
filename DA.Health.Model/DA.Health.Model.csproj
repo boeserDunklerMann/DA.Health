@@ -42,6 +42,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Attributes\DbFieldAttribute.cs" />
+    <Compile Include="Attributes\OmitDbAttribute.cs" />
     <Compile Include="DataClassBase.cs" />
     <Compile Include="GewichtMesswert.cs" />
     <Compile Include="Login.cs" />

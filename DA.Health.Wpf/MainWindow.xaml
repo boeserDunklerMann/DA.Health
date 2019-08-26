@@ -7,13 +7,5 @@
 		xmlns:Ctls="clr-namespace:DA.Health.Wpf.Controls;assembly=DA.Health.Wpf.Controls"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
-
-	<StackPanel Orientation="Vertical">
-		<StackPanel Orientation="Horizontal">
-			<Ctls:CtlMandants/>
-			<Ctls:CtlGewichtsprotokoll/>
-			<Ctls:CtlGewichtsEintrag/>
-		</StackPanel>
-		<Ctls:CtlGewichtZusammenfassung/>
-	</StackPanel>
+	<Ctls:MainControl x:Name="mainControl"/>
 </Window>

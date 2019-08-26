@@ -1,12 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using DA.Health.Model.Attributes;
+using System;
 
 namespace DA.Health.Model
 {
-    public sealed class GewichtMesswert : DataClassBase
+	public sealed class GewichtMesswert : DataClassBase
     {
 		public Mandant Mandant { get; set; }
 		public DateTime Datum { get; set; }
