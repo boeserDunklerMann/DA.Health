@@ -30,18 +30,18 @@ namespace DA.Health.Wpf.Controls
 
 		private void LoginViewModel_AfterLogin()
 		{
-			if (null != LoginSuccess)
+			if (null != AfterLogin)
 			{
-				if (!loginViewModel.HasFailed)
+				//if (!loginViewModel.HasFailed)
 				{
 					Login = loginViewModel.AuthenticatedLogin;
-					LoginSuccess();
+					AfterLogin();
 				}
 			}
 		}
 
-		public delegate void LoginSuccessEventHandler();
-		public event LoginSuccessEventHandler LoginSuccess;
+		public delegate void AfterLoginEventHandler();
+		public event AfterLoginEventHandler AfterLogin;
 		public Login Login { get; private set; }
 	}
 }

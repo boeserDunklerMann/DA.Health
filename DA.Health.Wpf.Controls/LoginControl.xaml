@@ -11,7 +11,7 @@
 		<VM:LoginViewModel x:Name="loginViewModel"/>
 	</UserControl.DataContext>
 	<StackPanel>
-		<Label Margin="20" FontSize="14" FontWeight="Bold" Foreground="DarkRed" Visibility="{Binding HasFailed, UpdateSourceTrigger=PropertyChanged}">Benutzername und/oder Passwort falsch.</Label>
+		<Label Margin="20" FontSize="14" FontWeight="Bold" Foreground="DarkRed" >Benutzername und/oder Passwort falsch.</Label>
 		<Label Margin="20">Benutzername</Label>
 		<TextBox Text="{Binding LoginName, UpdateSourceTrigger=PropertyChanged}"/>
 		<Label Margin="20">Passwort</Label>

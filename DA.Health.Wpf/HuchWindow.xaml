@@ -1,11 +1,13 @@
-﻿<Window x:Class="DA.Health.Wpf.LoginWindow"
+﻿<Window x:Class="DA.Health.Wpf.HuchWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:DA.Health.Wpf"
-        xmlns:Ctls="clr-namespace:DA.Health.Wpf.Controls;assembly=DA.Health.Wpf.Controls"
-		mc:Ignorable="d"
-        Title="LoginWindow" Height="450" Width="800" >
-	<Ctls:LoginControl x:Name="loginControl" AfterLogin="LoginControl_AfterLogin"/>
+        mc:Ignorable="d"
+        Title="Huch" Height="450" Width="800">
+    <StackPanel>
+		<Label FontSize="14" FontWeight="Bold" Foreground="DarkRed">Das hätte nicht passieren dürfen:</Label>
+		<TextBox x:Name="txtError" FontFamily="Courier New"/>
+	</StackPanel>
 </Window>

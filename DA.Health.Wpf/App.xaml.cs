@@ -10,15 +10,33 @@ namespace DA.Health.Wpf
 	{
 		private void Application_Startup(object sender, StartupEventArgs e)
 		{
-			Current.ShutdownMode = ShutdownMode.OnExplicitShutdown;
-			LoginWindow login = new LoginWindow();
-			if (login.ShowDialog() == true)
+			
+			Current.ShutdownMode = ShutdownMode.OnLastWindowClose;
+			try
 			{
-				Statics.CurrentLogin = login.Login;
-				MainWindow window = new MainWindow();
-				ShutdownMode = ShutdownMode.OnMainWindowClose;
-				MainWindow = window;
-				window.Show();
+				LoginWindow login = new LoginWindow();
+				if (login.ShowDialog() == true)
+				{
+					Statics.CurrentLogin = login.Login;
+					MainWindow window = new MainWindow();
+					ShutdownMode = ShutdownMode.OnMainWindowClose;
+					MainWindow = window;
+					window.Show();
+				}
+				else
+				{
+					// TODO: Zeige Login-FM
+					if (!login.Login.Validated)
+					{
+						MessageBox.Show("Login falsch");
+					}
+				}
+			}
+			catch (System.Exception ex)
+			{
+				HuchWindow huch = new HuchWindow(ex);
+				huch.ShowDialog();
+				Shutdown();
 			}
 		}
 	}

@@ -15,20 +15,18 @@ using System.Windows.Shapes;
 namespace DA.Health.Wpf
 {
 	/// <summary>
-	/// Interaction logic for LoginWindow.xaml
+	/// Interaction logic for HuchWindow.xaml
 	/// </summary>
-	public partial class LoginWindow : Window
+	public partial class HuchWindow : Window
 	{
-		public LoginWindow()
+		public HuchWindow(Exception exception)
 		{
 			InitializeComponent();
-		}
-		public Model.Login Login { get; private set; }
+			Exception e = exception;
+			while (e.InnerException != null)
+				e = e.InnerException;
 
-		private void LoginControl_AfterLogin()
-		{
-			Login = loginControl.Login;
-			DialogResult = Login.Validated;
+			txtError.Text = $"{e.Message}\r\nbei: \r\n{e.StackTrace}";
 		}
 	}
 }
