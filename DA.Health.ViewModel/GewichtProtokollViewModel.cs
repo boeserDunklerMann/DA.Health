@@ -57,7 +57,7 @@ namespace DA.Health.ViewModel
 		{
 			if (null != _selectedMandant)
 			{
-				Gewicht = _db.LoadGewicht(_selectedMandant);
+				Gewicht = _db.LoadGewicht(_selectedMandant).OrderBy(g => g.Datum).ToList();
 				RaisePropertyChangedEvent(nameof(Gewicht));
 			}
 		}

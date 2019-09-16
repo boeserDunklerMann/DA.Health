@@ -42,6 +42,7 @@ namespace DA.Health.ViewModel
 				var datum = messwerts.Select((mw)=> new { mw.Datum }).OrderBy(x => x.Datum);
 				FirstDate = (DateTime?)datum.First().Datum;
 				LastDate = datum.Last().Datum;
+				AllValues = messwerts.Select(mw => mw.Value).ToList();
 			}
 			else
 			{
@@ -61,7 +62,11 @@ namespace DA.Health.ViewModel
 		public DateTime? FirstDate { get; set; }
 		public DateTime? LastDate { get; set; }
 		public string WeightUnit => _settings?[Commons.Settings.WEIGHT_UNIT]?.SettingsValue;
-
+		public List<decimal> AllValues
+		{
+			get;
+			private set;
+		}
 		public GewichtZusammenfassungViewModel()
 		{
 			_instance = this;

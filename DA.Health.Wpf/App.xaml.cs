@@ -11,7 +11,7 @@ namespace DA.Health.Wpf
 		private void Application_Startup(object sender, StartupEventArgs e)
 		{
 			
-			Current.ShutdownMode = ShutdownMode.OnLastWindowClose;
+			Current.ShutdownMode = ShutdownMode.OnExplicitShutdown;
 			try
 			{
 				LoginWindow login = new LoginWindow();
