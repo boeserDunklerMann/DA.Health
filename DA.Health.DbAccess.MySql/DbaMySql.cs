@@ -11,7 +11,7 @@ namespace DA.Health.DbAccess.MySql
 {
 	public class DbaMySql : Contracts.Data.IDbAccessor
 	{
-		private const string CONNECTION_STRING = "Server=meereen;Database=Health;Uid=health;Pwd=gesundheit;";
+		private const string CONNECTION_STRING = "Server=192.168.1.2;Database=Health;Uid=health;Pwd=gesundheit;";
 		private readonly DbConnection _con = new DbConnection();
 
 		public DbaMySql()

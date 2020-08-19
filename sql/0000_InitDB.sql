@@ -1,5 +1,5 @@
-drop user 'health';
-drop database Health;
+#drop user 'health';
+#drop database Health;
 create database if not exists Health;
 
 create user 'health'@'%' identified by 'gesundheit';
