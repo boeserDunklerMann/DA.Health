@@ -42,7 +42,7 @@ namespace DA.Health.Wpf.Controls
 			if (null != vm.AllValues)
 			{
 				decimal min = vm.AllValues.Min();
-				decimal max = vm.Max.Value;
+				decimal max = vm.Max.HasValue ? vm.Max.Value : 0;
 				double rng = (double)(max - min);
 				double yScale = canvas.Height / rng;
 				int xStep = (int)canvas.Width / vm.AllValues.Count;

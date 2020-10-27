@@ -6,6 +6,10 @@
         xmlns:local="clr-namespace:DA.Health.Wpf"
         xmlns:Ctls="clr-namespace:DA.Health.Wpf.Controls;assembly=DA.Health.Wpf.Controls"
 		mc:Ignorable="d"
-        Title="LoginWindow" Height="450" Width="800" >
+        Title="LoginWindow" Height="450" Width="800"
+		TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+		Background="{DynamicResource MaterialDesignPaper}"
+		FontFamily="pack://application:,,,/MaterialDesignThemes.Wpf;component/Resources/Roboto/#Roboto">
+
 	<Ctls:LoginControl x:Name="loginControl" AfterLogin="LoginControl_AfterLogin"/>
 </Window>
